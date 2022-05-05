@@ -5,7 +5,7 @@ import os
 os.environ["WDM_LOG_LEVEL"] = "0"
 
 
-def get_custom_logger(name, level=logging.INFO):
+def get_custom_logger(name):
     formatter = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(name)s>>%(lineno)d - %(message)s')
 
     handler = logging.StreamHandler()
@@ -13,6 +13,6 @@ def get_custom_logger(name, level=logging.INFO):
 
     logger = logging.getLogger(name)
     logger.propagate = False
-    logger.setLevel(level)
+    logger.setLevel(logging.INFO)
     logger.addHandler(handler)
     return logger
