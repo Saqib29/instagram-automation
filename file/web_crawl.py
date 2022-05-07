@@ -1,4 +1,5 @@
 import time
+from pprint import pprint
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -29,9 +30,29 @@ def get_data():
 
     log_in = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']"))).click()
     not_now = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Not now')]"))).click()
+    not_now2 = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Not Now')]"))).click()
 
-    
+    searchbox = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Search']")))
+    searchbox.clear()
+    keyword = "#cat"
+    searchbox.send_keys(keyword)
+    searchbox.send_keys(Keys.ENTER)
 
+    driver.execute_script("window.scrollTo(0, 4000)")
+    images = driver.find_elements_by_tag_name('img')
+    images = [image.get_attribute('src') for image in images]
+
+
+    path = os.getcwd()
+    path = os.path.join(path, "../"+keyword[1:]+"s")
+
+    os.mkdir(path)
+
+    counter = 0
+    for image in images:
+        save_as = os.path.join(path, keyword[1:] + str(counter) + ".jpg")
+        wget.download(image, save_as)
+        counter += 1
 
 
 if __name__ == "__main__":
