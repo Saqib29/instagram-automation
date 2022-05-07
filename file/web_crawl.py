@@ -1,5 +1,4 @@
 import time
-from pprint import pprint
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -39,7 +38,7 @@ def get_data():
     searchbox.send_keys(Keys.ENTER)
 
     driver.execute_script("window.scrollTo(0, 4000)")
-    images = driver.find_elements_by_tag_name('img')
+    images = driver.find_element(by=By.TAG_NAME, value='img')
     images = [image.get_attribute('src') for image in images]
 
 
